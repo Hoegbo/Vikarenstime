@@ -1,0 +1,11 @@
+#progresswrapper {
+    width: 100%;
+    height: 1em;
+    background-color: aquamarine;
+}
+
+#progressbar {
+    height: 100%;
+    width: 0;
+    background-color: blue;
+}

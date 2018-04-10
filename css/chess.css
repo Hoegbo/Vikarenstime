@@ -1,0 +1,12 @@
+.chess-wrapper {
+}
+.chess-cell {
+    display: inline-block;
+}
+.black {
+    background-color: black;
+}
+
+.white {
+    background-color: white;
+}

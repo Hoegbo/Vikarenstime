@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Oppgaver </title>
+    <link rel="stylesheet" href="css/progress.css">
+    <link rel="stylesheet" href="css/chess.css">
+</head>
+<body>
+    <ul>
+        <li>Print en trapp i consollen med loops...</li>
+        <li>print nye rows i en table via loop</li>
+        <li>simuler en audioplayer hint bruk while loop til å flytte progressbar</li>
+        <li>generer et sjakkbrett mønster</li>
+    </ul>
+
+    <h3>Oppgave 2</h1>
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                <th>Fornavn</th>
+                <th>Etternavn</th>
+                <th>Alder</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+
+        </tbody>
+    </table>
+
+    <h3>Oppgave 3</h3>
+    <button onclick="progressWhile();">progressWhile</button>
+    <button onclick="progressTimeout();">progressTimeout</button>
+    
+    <div id="progresswrapper">
+        <div id="progressbar"></div>
+    </div>
+    <h3>Oppgave 4</h3>
+    <div class="chess-wrapper"></div>
+
+<script src="js/Person.js"></script>
+    <script>
+    
+(function() {
+    console.log("%c* Oppgave 1 *", "text-decoration: underline; color: #FF0000; font-size: 20px;")
+    var height = 10;
+    for (let currentHeight = 0; currentHeight < height; currentHeight++) {
+        var ThisLevel = "";
+        for (var i = 1; i < currentHeight + 1; i++) {
+            ThisLevel += i;
+        }
+
+        var MirrorThisLevel = ThisLevel
+        .substr(1)
+        .split('')
+        .reverse()
+        .join('');
+
+        console.log(Padding(MirrorThisLevel + ThisLevel, height));
+    
+        function Padding(_Text, _Height) {
+            var TotalWidth = _Height * 2;
+            var ThisWidth = TotalWidth - _Text.length;
+            var Padding = Math.floor(ThisWidth/2);
+            for (let index = 0; index < Padding; index++) {
+                _Text = ' ' + _Text + ' ';
+            }
+            return _Text;
+        }
+    }
+})();
+
+(function() {
+    console.log("%c* Oppgave 2 *", "text-decoration: underline; color: #FF0000; font-size: 20px;")
+    console.log("%c<<<<<", "font-size: 14px;")
+
+    // generate persons..
+    var _ListeOverPersoner = [];
+    for (let index = 0; index < 5; index++) {
+        _ListeOverPersoner.push(
+            new Person(
+                Math.floor((Math.random() * 10000)).toString(16), 
+                // Math.floor runder av nedover til nærmeste heltall
+                // Math.random returnerer et tall mellom 0 og opp til 1 (aldri 1)
+                //  ganger man dette med et tall så vil man få et tall mellom 0 og dette tallet.
+                //  om man ønsker en random verdi mellom 1 og 100, så må man første gange
+                //  med 100 og legge til 1
+                // toString(16) konverterer til et string med hexadecimal verdi
+
+                // var Verdi = 255; Verdi.toString(16) gir deg da "ff" 
+                // som dere kjenner til i css
+
+                Math.floor((Math.random() * 10000)).toString(16), 
+                Math.floor(Math.random() * 100 + 1))
+            );
+    }
+    var _Element = document.getElementById('tableBody');
+    _ListeOverPersoner.forEach(function(el) {
+        _Element.innerHTML = _Element.innerHTML + '<tr><td>' + el.Fornavn + '</td><td>' + el.Etternavn + '</td><td>' + el.Alder + '</td></tr>';
+    })
+})();
+
+    console.log("%c* Oppgave 3 *", "text-decoration: underline; color: #FF0000; font-size: 20px;")
+    console.log("%c<<<<<", "font-size: 14px;")
+    
+var start = 0;
+function progressWhile() {
+    while (true) {
+        start+= 1;
+        if (start > 100) {
+            console.log("done");
+            setTimeout(function() {
+                start = 0;
+                document.getElementById('progressbar').style.width = start + '%';
+            }, 1000);
+            break;
+        }
+        else {
+            document.getElementById('progressbar').style.width = start + '%';
+        }
+    }
+
+}
+
+
+function progressTimeout() {
+    start+= 1;
+    if (start > 100) {
+        console.log("done");
+            setTimeout(function() {
+                start = 0;
+                document.getElementById('progressbar').style.width = start + '%';
+            }, 1000);
+    }
+    else {
+        document.getElementById('progressbar').style.width = start + '%';
+        setTimeout(progressTimeout, 1000/30);
+    }
+}
+
+
+(function() {
+    console.log("%c* Oppgave 4 *", "text-decoration: underline; color: #FF0000; font-size: 20px;")
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'chess-wrapper';
+    var wrapperSize = 300;
+    var cellSize = 30;
+
+    wrapper.style.width = wrapperSize + 'px';
+    wrapper.style.height = wrapperSize + 'px';
+    var html = "";
+for (var x = 0; x < (wrapperSize / cellSize); x++) {
+    for (var y = 0; y < (wrapperSize / cellSize); y++) {
+
+        var thisCell = document.createElement('div');
+        thisCell.style.width = cellSize + 'px';
+        thisCell.style.height = cellSize + 'px';
+        thisCell.className = "chess-cell";
+
+        switch(returncheckboardblackorwhite(x, y)) {
+            case true:
+                thisCell.className += " black";
+                break;
+            case false: 
+                thisCell.className += " white";
+                break;
+        }
+        wrapper.appendChild(thisCell);
+    }
+}
+
+document.body.appendChild(wrapper);
+
+function returncheckboardblackorwhite(x, y) {
+    return (x % 2 == 0 && y % 2 == 1) || (x % 2 == 1 && y % 2 == 0)
+}
+
+})();
+    </script>
+</body>
+</html>
