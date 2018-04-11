@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Oppgaver </title>
-    <link rel="stylesheet" href="css/progress.css">
-    <link rel="stylesheet" href="css/chess.css">
+    <link rel="stylesheet" href="progress.css">
+    <link rel="stylesheet" href="chess.css">
 </head>
 <body>
     <ul>
@@ -40,16 +40,16 @@
     <h3>Oppgave 4</h3>
     <div class="chess-wrapper"></div>
 
-<script src="js/Person.js"></script>
+<script src="Person.js"></script>
     <script>
     
 (function() {
     console.log("%c* Oppgave 1 *", "text-decoration: underline; color: #FF0000; font-size: 20px;")
-    var height = 10;
-    for (let currentHeight = 0; currentHeight < height; currentHeight++) {
+    var height = 20;
+    for (var currentHeight = 0; currentHeight < height; currentHeight++) {
         var ThisLevel = "";
         for (var i = 1; i < currentHeight + 1; i++) {
-            ThisLevel += i;
+            ThisLevel += '#';
         }
 
         var MirrorThisLevel = ThisLevel
@@ -78,7 +78,7 @@
 
     // generate persons..
     var _ListeOverPersoner = [];
-    for (let index = 0; index < 5; index++) {
+    for (var index = 0; index < 5; index++) {
         _ListeOverPersoner.push(
             new Person(
                 Math.floor((Math.random() * 10000)).toString(16), 
@@ -97,9 +97,11 @@
             );
     }
     var _Element = document.getElementById('tableBody');
-    _ListeOverPersoner.forEach(function(el) {
+    for (var el of _ListeOverPersoner) {
         _Element.innerHTML = _Element.innerHTML + '<tr><td>' + el.Fornavn + '</td><td>' + el.Etternavn + '</td><td>' + el.Alder + '</td></tr>';
-    })
+        
+    }
+ 
 })();
 
     console.log("%c* Oppgave 3 *", "text-decoration: underline; color: #FF0000; font-size: 20px;")
@@ -136,7 +138,7 @@ function progressTimeout() {
     }
     else {
         document.getElementById('progressbar').style.width = start + '%';
-        setTimeout(progressTimeout, 1000/30);
+        setTimeout(progressTimeout, 10);
     }
 }
 
@@ -167,7 +169,7 @@ for (var x = 0; x < (wrapperSize / cellSize); x++) {
             case false: 
                 thisCell.className += " white";
                 break;
-        }
+        }        
         wrapper.appendChild(thisCell);
     }
 }

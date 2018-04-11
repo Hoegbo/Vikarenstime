@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test av ekstern data innhenting</title>
+</head>
+<body>
+    <button id="getData">Hent data.</button>
+
+    <div id="ContentWrapper"></div>
+    <script>
+        var DataSett = [];
+        var FiltrertDataSett = [];
+        document.getElementById('getData').addEventListener('click', initData);
+        function initData() {
+            if (DataSett.length == 0) {
+
+            fetchData(function(data) {
+                DataSett = data;
+                FiltrertDataSett = data;
+                visFiltrertData();
+            });
+            }
+            else {
+                visFiltrertData();
+            }
+        }
+
+        function fetchData(callback) {
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if(request.readyState === 4) {
+                    if(request.status === 200) { 
+                        callback(JSON.parse(request.responseText));
+                    } else {
+                        console.error('feilmelding fra server: ' +  request.status + ' ' + request.statusText);
+                    } 
+                }
+            }
+
+            request.open('GET', 'data.json');
+            request.send();
+        }
+
+        function visFiltrertData() {
+            var table = document.createElement('table');
+
+            var counter = 0;
+            for ( var i = 0; i < FiltrertDataSett.length; i++) {
+                var element = FiltrertDataSett[i];
+                var row = document.createElement('tr');
+                for (var key in element) {
+                    if (element.hasOwnProperty(key)) {
+                        var thisValue = element[key];
+                        var thisCell = document.createElement('td');
+                        if (key == "profile_image") {
+                            var thisImage = document.createElement('img');
+                            thisImage.src = thisValue;
+                            thisImage.style.height = "1em";
+                            thisCell.appendChild(thisImage);
+                        }
+                        else {
+                            thisCell.innerText = thisValue;
+
+                        }
+                        row.appendChild(thisCell);
+                    }
+                }
+                table.appendChild(row);
+                counter++;
+            };
+            var ContentWrapper = document.getElementById('ContentWrapper');
+
+            ContentWrapper.innerHTML = '<p>Antall treff: ' + counter + '</p>';
+            ContentWrapper.appendChild(table);
+        }
+        </script>
+</body>
+</html>

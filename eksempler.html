@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eksempler</title>
+
+</head>
+<body>
+    <style>
+        code {
+            background-color: lightgray;
+            border: 1px dotted black;
+            box-sizing: border-box;
+            padding: 0 25px;
+        }
+        </style>
+    <script>
+        var navneliste = ["Ola", "Roger", "Knut"];
+        
+        leggTilSide('<h3>Vanlig for løkke</h3>');
+        leggTilSide('<code>for(var posisjon = 0; posisjon < navneliste.length; posisjon++) {}</code>');
+        for(var posisjon = 0; posisjon < navneliste.length; posisjon++) {
+            var navn = navneliste[posisjon];
+            leggTilSide(navn);
+        }
+
+        leggTilSide('<h3>Vanlig motsatt løkke</h3>');
+        leggTilSide('<code>for(var posisjon = navneliste.length - 1; posisjon >= 0; posisjon--) {}</code>');
+        for(var posisjon = navneliste.length - 1; posisjon >= 0; posisjon--) {
+            var navn = navneliste[posisjon];
+            leggTilSide(navn);
+        }
+
+        leggTilSide("<h3>Kvadrering av tall</h3>")
+        leggTilSide('<code>for(var tall = 2; tall < 10000000; tall *= tall ) {}</code>');
+        
+        for(var tall = 2; tall < 10000000; tall *= tall ) {
+            leggTilSide(tall);
+        }
+
+        leggTilSide("<h3>dobling av tall</h3>")
+        leggTilSide('<code>for(var tall = 1; tall < 15000; tall *= 2 ) {}</code>');
+        
+        for(var tall = 1; tall < 15000; tall *= 2 ) {
+            leggTilSide(tall.toLocaleString());
+        }
+
+
+        leggTilSide("<h3>Kan også behandle string som et array</h3>");
+        leggTilSide('<code>for (var posisjon = 0; posisjon < tekstStreng.length; posisjon++) {tekstStreng[posisjon]}</code>');
+        var tekstStreng = "Heisann hå..";
+
+        var html = '';
+        for (var posisjon = 0; posisjon < tekstStreng.length; posisjon++) {
+            var upperCase = Math.random() > 0.5;
+            html += '<span style="text-transform: '+ 
+            (upperCase ? 'uppercase' : 'lowercase') 
+            + '">' + tekstStreng[posisjon] + '</span>';
+        }
+        leggTilSide(html);
+        
+
+        
+        function leggTilSide(tekst) {
+            document.body.innerHTML += '<p>' + tekst + '</p>';
+        }
+    </script>
+</body>
+</html>

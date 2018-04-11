@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lifetime</title>
+</head>
+<body>
+
+    <div id="lifetime"></div>
+<script>
+    var objekt = {
+        navn: "Ola",
+        etternavn: "Einvik",
+        Alder: 35,
+        notDead: true,
+        Fullnavn: function() {
+            return this.navn + ' ' + this.etternavn;
+        },
+        IncreaseAge: function() {
+            this.Alder++;
+        },
+        dies: function() {
+            return (Math.random() < 0.1);
+        }
+    }
+
+    while(objekt.notDead) {
+        objekt.IncreaseAge();
+        document.querySelector('#lifetime').innerHTML += '<p>' +"Current age of this specimen is now " + objekt.Alder + '</p>';
+        if (objekt.dies()) {
+            objekt.notDead = false;
+            document.querySelector('#lifetime').innerHTML += '<p>Object no longer alive</p>';    
+        }
+    }
+
+</script>
+</body>
+</html>

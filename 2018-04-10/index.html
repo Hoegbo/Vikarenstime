@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Objekter og funksjoner!</title>
+</head>
+<body>
+<script>
+    var objekt = {
+        navn: "Ola",
+        etternavn: "Einvik",
+        Alder: 35,
+        Fullnavn: function() {
+            return this.navn + ' ' + this.etternavn;
+        },
+        IncreaseAge: function() {
+            this.Alder++;
+        }
+    }
+    // console.log(objekt);
+
+
+var verdi = 1;
+var filetternavn = "jpg";
+
+switch (filetternavn) {
+    case "jpg":
+    case "bmp":
+    case "gif":
+        // alert("bilde");
+        break;
+    case "mp3": 
+    case "mp4":
+        //  alert("musikk");
+        break;
+    default:
+        //  alert("noe annet");
+}
+
+var liste = [3,1,33,1,7,61,71,87,912,810];
+
+for (var x = 0; x <= 100; x++) {
+ if (x > 10) {
+    break;
+ }
+ if (x % 2 == 0) {
+     continue;
+ }
+//   console.log(x);
+}
+
+for (var key in objekt) {
+    if (objekt.hasOwnProperty(key)) {
+        // console.log(key);
+    }
+}
+
+for (var element of liste) {
+    console.log(element);
+}
+
+liste.forEach(function(value) {
+    console.log(value);
+})
+
+var WhileLoop = true;
+var counter = 0;
+while (WhileLoop) {
+    counter++;
+
+     if (counter > 10) {
+        break;
+    }
+    if (counter % 2 == 0) {
+        continue;
+    }
+    console.log("while");
+}
+
+do {
+    console.log("do while");
+} while (false)
+
+(function() {
+    var height = 10;
+for (let currentHeight = 0; currentHeight < height; currentHeight++) {
+    var ThisLevel = "";
+    for (var i = 1; i < currentHeight + 1; i++) {
+        ThisLevel += i;
+    }
+
+    var MirrorThisLevel = ThisLevel
+    .substr(1)
+    .split('')
+    .reverse()
+    .join('');
+
+    // console.log(Padding(MirrorThisLevel + ThisLevel, height));
+    
+    function Padding(_Text, _Height) {
+        var TotalWidth = _Height * 2;
+        var ThisWidth = TotalWidth - _Text.length;
+        var Padding = Math.floor(ThisWidth/2);
+        
+
+        for (let index = 0; index < Padding; index++) {
+            _Text = ' ' + _Text + ' ';
+        }
+        return _Text;
+
+    }
+
+}
+})();
+</script>
+</body>
+</html>

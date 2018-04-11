@@ -1,4 +1,5 @@
 .chess-wrapper {
+    font-size:0;
 }
 .chess-cell {
     display: inline-block;
