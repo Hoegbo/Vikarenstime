@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo</title>
+</head>
+
+<body>
+    <style>
+        code {
+            background-color: lightgray;
+            border: 1px dotted black;
+            box-sizing: border-box;
+            padding: 0 25px;
+        }
+
+        input[type=text] {
+            width: 300px;
+            border: none;
+            background-color: lightsalmon;
+            box-sizing: border-box;
+            padding: 0 15px;
+        }
+
+        button {
+            border: none;
+            padding: 0 15px;
+
+        }
+
+        #TodoListe button {
+            font-size: 22px;
+        }
+
+        .headerInput {
+            height: 30px;
+        }
+
+        ul#TodoListe {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #TodoListe li {
+            box-sizing: border-box;
+            padding: 0;
+            height: 50px;
+            text-align: center;
+            width: 300px;
+            border: 1px solid black;
+            margin: 15px 0;
+            position: relative;
+            transition: all 1s;
+        }
+
+        #TodoListe li.slideout {
+            animation: slideout 1s;
+        }
+
+        #TodoListe li.done {
+            opacity: 0.5;
+        }
+
+        #TodoListe li.done span {
+            text-decoration: line-through;
+        }
+
+        #TodoListe li span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+
+        @keyframes slideout {
+            from {
+                opacity: 1;
+                transform: scale(1)
+            }
+            to {
+                transform: scale(10) rotate(180deg);
+                opacity: 0;
+
+            }
+        }
+
+        /* Buttons */
+
+        #TodoListe li button.done {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        #TodoListe li button.delete {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Time */
+
+        #timeWrapper {
+            height: 30px;
+            border: 1px solid black;
+            box-sizing: border-box;
+            margin: 30px 0;
+        }
+
+        #timeProgress {
+            height: 100%;
+            width: 0%;
+            transition: all 1s;
+            background: greenyellow;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #timeProgress.warning {
+            background-color: goldenrod;
+        }
+
+        #timeProgress.alert {
+            animation: alertAnim 3s infinite;
+        }
+
+        @keyframes alertAnim {
+            0% {
+                background-color: #00FFFF;
+            }
+            10% {
+                background-color: #FF0000;
+            }
+            100% {
+                background-color: #00FFFF;
+            }
+        }
+    </style>
+    <h1>Todo</h1>
+    <p>Lag en todo, den bør inneholde følgende elementer:</p>
+    <ul>
+        <li>
+            Opprett en variabel som er et Array element, velg selv om du ønsker å forhåndsfylle den.
+            <br>
+            <code>var TodoListe = [];</code>
+        </li>
+        <li>
+            Opprett en
+            <code>&lt;input type=text&gt;</code>
+            <br> og en button
+            <code>&lt;button&gt;</code>
+        </li>
+        <li>
+            Hver gang du trykker på knappen så skal den legge til innholdet i input-feltet inn i det arrayet du tidligere deklarerte.
+
+            <code>
+                TodoListe.push(inputelement.value)
+            </code>
+        </li>
+        <li>
+            Når det legges til Todolist, så skal dette listes opp. Se om dere får dette i console.log først, for så å putte det på html.
+            <code>
+                for (var i = 0; i &lt; TodoList.length; i++) { console.log(TodoList[i]); }
+            </code>
+        </li>
+        <li>
+            Bonuspoeng; når det listes ut i html, legg på mulighet for å slette det dere skrev inn på lista.
+        </li>
+
+        <li>
+            Bonuspoeng; Marker en todo ting som done
+        </li>
+        <li>
+            Bonuspoeng; Tom liste, gi beskjed
+        </li>
+    </ul>
+
+
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <div id="timeWrapper">
+        <div id="timeProgress">
+            <span id="timeText"></span>
+        </div>
+    </div>
+    <input type="text" id="inputTekst" class="headerInput">
+    <button type="button" id="cmdLeggTilTekst" class="headerInput" onclick="LeggTilListe()">Legg til tekst</button>
+    <ul id="TodoListe"></ul>
+
+    <script>
+        var TodoListe = ["drikke kaffe", "ut med bikkja", "vente på roger"];
+        var ElementTodoListe = document.getElementById('TodoListe');
+        document.getElementById('inputTekst').onkeyup = function (e) {
+            var keyCode = e.which || e.keyCode;
+
+            if (keyCode == 13) // 13 er enter
+            {
+                LeggTilListe();
+            }
+        }
+
+        function LeggTilListe() {
+            var Tekst = document.getElementById('inputTekst').value
+            if (Tekst) {
+                TodoListe.push(Tekst);
+                OppdaterListe();
+            }
+            document.getElementById('inputTekst').value = '';
+            document.getElementById('inputTekst').focus();
+
+        }
+
+        function OppdaterListe() {
+            ElementTodoListe.innerHTML = '';
+
+            if (TodoListe.length == 0) {
+                var CurrentTodo = "Lista er tom!";
+                var ListItem = document.createElement('li');
+                var Tekst = document.createElement('span');
+                Tekst.innerHTML = CurrentTodo;
+                ListItem.appendChild(Tekst);
+                ElementTodoListe.appendChild(ListItem);
+            }
+            for (var index = 0; index < TodoListe.length; index++) {
+                var CurrentTodo = TodoListe[index];
+                var ListItem = document.createElement('li');
+
+                var Tekst = document.createElement('span');
+                Tekst.innerHTML = CurrentTodo;
+                ListItem.appendChild(Tekst);
+
+
+                var DeleteButton = document.createElement('button');
+                DeleteButton.innerHTML = '&#x1f5d1;';
+                DeleteButton.className = 'delete';
+                DeleteButton.setAttribute('index', index);
+
+                var DoneButton = document.createElement('button');
+                DoneButton.innerHTML = '&#x2713;';
+                DoneButton.className = 'done';
+
+                ListItem.appendChild(DoneButton)
+
+                ListItem.appendChild(DeleteButton)
+                DeleteButton.onclick = function () {
+                    SlettTingFraListe(this);
+                    // this referer til elementet vi nettopp trykte på.
+                }
+
+                DoneButton.onclick = function () {
+                    toggleDone(this);
+                    // this referer til elementet vi nettopp trykte på.
+                }
+                ElementTodoListe.appendChild(ListItem);
+            }
+        }
+
+        function SlettTingFraListe(element) {
+            var index = element.getAttribute('index');
+            TodoListe.splice(index, 1);
+            element.parentElement.classList.add('slideout');
+            setTimeout(OppdaterListe, 1000);
+        }
+
+        function toggleDone(element) {
+            element.parentElement.classList.toggle('done');
+        }
+        window.onload = function () {
+            OppdaterListe();
+            updateTime();
+        }
+
+        var startTime = new Date();
+        startTime.setHours(9);
+        startTime.setMinutes(0);
+        startTime.setSeconds(0);
+
+        var endTime = new Date();
+        endTime.setHours(15);
+        endTime.setMinutes(0);
+        endTime.setSeconds(0);
+
+        function updateTime() {
+            var nowTime = new Date();
+
+            var totalDuration = Math.floor((endTime - startTime) / 1000);
+            var elapsedTime = Math.floor((nowTime - startTime) / 1000);
+
+            var remainingTime = totalDuration - elapsedTime;
+
+            if (remainingTime > 0) {
+                document.getElementById('timeProgress').style.width = Math.round((elapsedTime / totalDuration) * 100) +
+                    '%';
+                var hours = Math.floor(remainingTime / 3600);
+                remainingTime = remainingTime - (hours * 3600);
+                var minutes = Math.floor(remainingTime / 60);
+                remainingTime = remainingTime - (minutes * 60);
+                var seconds = remainingTime;
+
+                var str = "";
+
+                if (hours > 0) {
+                    str += hours + ' timer ';
+                }
+                str += minutes + ' minutter ' + seconds + 'sekunder';
+                document.getElementById('timeText').innerHTML = "Tid som gjenstår av oppgaven: " + str;
+
+                if (hours == 0 && minutes > 30) {
+                    document.getElementById('timeProgress').classList.add('warning');
+                } else if (hours == 0 && minutes <= 30) {
+                    document.getElementById('timeProgress').classList.add('alert');
+                }
+
+                setTimeout(updateTime, 1000);
+            }
+            else {
+                document.getElementById('timeText').innerHTML = "Ferdig!!!";
+                
+            }
+
+        }
+    </script>
+</body>
+
+</html>
