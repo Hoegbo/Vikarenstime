@@ -23,77 +23,6 @@
 
         }
 
-        #TodoListe button {
-            font-size: 22px;
-        }
-
-        .headerInput {
-            height: 30px;
-        }
-
-        ul#TodoListe {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        #TodoListe li {
-            box-sizing: border-box;
-            padding: 0;
-            height: 50px;
-            text-align: center;
-            width: 300px;
-            border: 1px solid black;
-            margin: 15px 0;
-            position: relative;
-            transition: all 1s;
-        }
-
-        #TodoListe li.slideout {
-            animation: slideout 1s;
-        }
-
-        #TodoListe li.done {
-            opacity: 0.5;
-        }
-
-        #TodoListe li.done span {
-            text-decoration: line-through;
-        }
-
-        #TodoListe li span {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translateY(-50%) translateX(-50%);
-        }
-
-        @keyframes slideout {
-            from {
-                opacity: 1;
-                transform: scale(1)
-            }
-            to {
-                transform: scale(10) rotate(180deg);
-                opacity: 0;
-
-            }
-        }
-
-        /* Buttons */
-
-        #TodoListe li button.done {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-
-        #TodoListe li button.delete {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
         /* Time */
 
         #timeWrapper {
@@ -130,8 +59,8 @@
             background-color: goldenrod;
         }
 
-        #timeProgress.alert {
-            animation: alertAnim 3s infinite;
+        #timeWrapper.alert, #timeProgress.alert {
+            animation: alertAnim 1s infinite;
         }
 
         #timeUpdate {
@@ -157,14 +86,14 @@
         }
 
         @keyframes alertAnim {
-            0% {
-                background-color: #00FFFF;
+            from {
+                /* background-color: #aa0000; */
+                box-shadow: 0 0 10px #aa0000, 0 0 15px #aa0000;
+
             }
-            10% {
-                background-color: #FF0000;
-            }
-            100% {
-                background-color: #00FFFF;
+            to {
+                /* background-color: #aa0000; */
+                box-shadow: 0 0 3px #FF0000, 0 0 5px #DD0000;
             }
         }
 
@@ -230,7 +159,7 @@
                 Fyll inn dette arrayet med diverse varelageroversikt, merk du kan også bruke mockaroo.com for å generere en større liste
                 over varer.
                 <br>
-                <code style="">
+                <code>
                     Varelager = [ { id: 1, varenavn: "Datamus", pris: 99, antall: 100 }, { id: 2, varenavn: "Tastatur", pris: 199, antall: 3
                     }, { id: 3, varenavn: "Skjerm", pris: 1099, antall: 0 }]
                 </code>
@@ -558,7 +487,8 @@
                 if (hours == 0 && minutes > 30) {
                     document.getElementById('timeProgress').classList.add('warning');
                 } else if (hours == 0 && minutes <= 30) {
-                    document.getElementById('timeProgress').classList.add('alert');
+                    // document.getElementById('timeProgress').classList.add('alert');
+                    document.getElementById('timeWrapper').classList.add('alert');
                 }
 
                 setTimeout(updateTime, 1000);
