@@ -75,12 +75,20 @@
         // var VareLager = VareLagerOriginal;
         var CurrentSort = 'id';
         var CurrentSortDirection = 'asc';
+
         var rad = document.createElement('tr');
+        
         var id = document.createElement('td');
         var varenavn = document.createElement('td');
         var pris = document.createElement('td');
         var antall = document.createElement('td');
         var knapper = document.createElement('td');
+
+        rad.appendChild(id);
+        rad.appendChild(varenavn);
+        rad.appendChild(pris);
+        rad.appendChild(antall);
+        rad.appendChild(knapper);
 
         id.innerHTML = '<input type=text id="nyId" style="width: 50px;">';
         varenavn.innerHTML = '<input type=text id="nyVarenavn" style="">';
@@ -88,11 +96,7 @@
         antall.innerHTML = '<input type=text id="nyAntall">';
 
         knapper.innerHTML = '<button onclick="leggTilVare();">Lagre nytt produkt</button>';
-        rad.appendChild(id);
-        rad.appendChild(varenavn);
-        rad.appendChild(pris);
-        rad.appendChild(antall);
-        rad.appendChild(knapper);
+    
         document.querySelector('#varelagerheader').appendChild(rad);
 
         function oppdaterVarelagerOversikt() {
@@ -128,6 +132,7 @@
                 rad.appendChild(pris);
                 rad.appendChild(antall);
                 rad.appendChild(knapper);
+                
 
                 document.querySelector('#varelageroversikt').appendChild(rad);
             }

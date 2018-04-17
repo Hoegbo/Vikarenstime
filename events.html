@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>17.04.2018</title>
+</head>
+
+<body>
+
+    <select name="" id="selectliste">
+        <option value="engelsk">Engelsk</option>
+        <option value="norsk">Norsk</option>
+    </select>
+    <hr>
+    <button id="firstButton" onclick="alertYear()">1. Hvilket år er dette?</button>
+    <button id="secondButton">2. Hvilket år er dette?</button>
+    <button id="thirdButton">3. Hvilket år er dette?</button>
+    <hr>
+    <input type="text" style="width: 100%;" id="listeInput">
+    <ul id="liste"></ul>
+
+    <div id="divWrapper">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <style>
+        #divWrapper>div {
+            height: 30px;
+            background-color: #aaaaaa;
+            border-bottom: 1px solid red;
+        }
+    </style>
+    <details>
+        <summary>Kort oversikt over noen vanlige event typer</summary>
+        <pre>
+    blur		    The event occurs when an element loses focus
+    change		    The event occurs when the content of a form element, the selection, or the checked state have changed (for input, select, and textarea)
+    click		    The event occurs when the user clicks on an element
+    contextmenu		The event occurs when the user right-clicks on an element to open a context menu
+    dblclick		The event occurs when the user double-clicks on an element
+    focus		    The event occurs when an element gets focus
+    input	        The event occurs when an element gets user input
+    keydown		    The event occurs when the user is pressing a key
+    keypress		The event occurs when the user presses a key
+    keyup		    The event occurs when the user releases a key
+    mousedown		The event occurs when the user presses a mouse button over an element
+    mouseenter		The event occurs when the pointer is moved onto an element
+    mouseleave		The event occurs when the pointer is moved out of an element
+    mousemove		The event occurs when the pointer is moving while it is over an element
+    mouseover		The event occurs when the pointer is moved onto an element, or onto one of its children
+    mouseout		The event occurs when a user moves the mouse pointer out of an element, or out of one of its children
+    mouseup		    The event occurs when a user releases a mouse button over an element
+    resize	        The event occurs when the document view is resized
+    select	        The event occurs after the user selects some text (for input and textarea)
+    submit		    The event occurs when a form is submitted
+    touchcancel		The event occurs when the touch is interrupted
+    touchend		The event occurs when a finger is removed from a touch screen
+    touchmove		The event occurs when a finger is dragged across the screen
+    touchstart		The event occurs when a finger is placed on a touch screen
+    wheel		    The event occurs when the mouse wheel rolls up or down over an element
+            </pre>
+    </details>
+    <script>
+        document.addEventListener('click', function(event) {
+            console.log(event.target);
+            var id = event.target.id;
+            console.log(id);
+        });
+        document.getElementById('selectliste').addEventListener('change', function (event) {
+            console.log("Select har endret seg", 
+            document.getElementById('selectliste').value);
+        })
+
+        var secondButton =
+            document.querySelector('#secondButton');
+
+        secondButton.onclick = alertYear;
+
+
+        var thirdButton =
+            document.querySelector('#thirdButton');
+
+        thirdButton.addEventListener('click', function () {
+            document.getElementById('divWrapper')
+                .dispatchEvent(new Event('kaffetid'));
+        });
+
+        function alertYear(event) {
+            console.log(event)
+            // alert(new Date().getFullYear())
+        }
+
+        document.querySelector('#listeInput')
+            .addEventListener('input', test)
+
+        function test(event) {
+            document.querySelector('body')
+            .style.backgroundColor = document.querySelector('#listeInput').value;
+        }
+
+        function printTimestamp() {
+
+            var CurrentTime = +new Date();
+            document.querySelector('#liste').innerHTML += '<li>' + CurrentTime + ' - ' + document.querySelector(
+                '#listeInput').value + '</li>';
+        }
+
+
+        document.getElementById('divWrapper')
+            .addEventListener('kaffetid', function () {
+                alert("jeg ble klikket");
+            })
+
+        var divver = document.querySelectorAll('#divWrapper > div');
+        for (var index = 0; index < divver.length; index++) {
+            var currentDiv = divver[index];
+            currentDiv.addEventListener('click', function (event) {
+                event.stopPropagation();
+                console.log("jeg er en under div");
+            })
+
+        }
+    </script>
+</body>
+
+</html>

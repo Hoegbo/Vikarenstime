@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Endre bakgrunnsfarge</h1>
+    <button id="random">Endre vilkårlig farge</button>
+    <button id="fade">Overgang fra hvit til svart</button>
+    <button id="context">høyre museknapp</button>
+    <style>
+        .farefare {
+            background-color: salmon;
+            font-size: 30px;
+        }
+    </style>
+    <script>
+        document.querySelector('button#random').addEventListener('click', skiftFarge);
+        document.querySelector('button#fade').addEventListener('click', initGreyScale);
+        document.querySelector('button#context').addEventListener('contextmenu', rightClick);
+        document.querySelector('button#context').addEventListener('click', leftClick);
+
+
+        function leftClick(event) {
+            document.querySelector('h1').innerText = "Venstre museknapp trykket"
+        }
+
+        function rightClick(event) {
+            event.preventDefault();
+            document.querySelector('h1').innerText = "Høyre museknapp trykket"
+        }
+
+        function skiftFarge() {
+            var element = document.querySelector('body');
+            // returnerer et tall mellom 0 og 255
+            var Red = Math.floor(Math.random()*256);
+            var Green = Math.floor(Math.random()*256);
+            var Blue = Math.floor(Math.random()*256);
+            // element.style.backgroundColor = 'red';
+            // element.className = 'farefare'
+            element.style.backgroundColor = 'rgb('+Red+','+ Green+','+ Blue+')';
+        }
+
+        function initGreyScale(start) {
+            if (start == 0) return false;
+            start = start ? start : 255;
+            var element = document.querySelector('body');
+            element.style.backgroundColor = 'rgb(' + start + ',' + start + ',' + start + ')';
+            start--;
+            setTimeout(function () {
+                initGreyScale(start);
+            }, 10);
+        }
+
+        // setInterval(function() {
+        //     document.querySelector('button#random').dispatchEvent(new Event('click'));
+        // }, 1000);
+    </script>
+</body>
+
+</html>

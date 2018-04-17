@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="test" style="height: 100px; background-color: lightblue;"></div>
+    <div id="contextmenuwrapper">
+        <div id="mainmenu">
+                <div id="menu1">
+                        <span>Meny 1</span>
+                    </div>
+                    <div id="menu2">Meny 2</div>
+            
+        </div>
+        <div id="submenu">
+            <div id="menu1sub">Submenu 1</div>
+            <div id="menu2sub">Submenu 2</div>
+        </div>
+    </div>
+
+    <style>
+        #contextmenuwrapper {
+            border: 1px solid black;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+        #contextmenuwrapper > div {
+            float: left;
+            border: 1px solid red;
+        }
+        #submenu> div {
+            display: none;
+            /* position: relative; */
+            /* left: 100%; */
+            
+        }
+    </style>
+
+    <script>
+    document.querySelector('#test').addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+        console.log(event);
+        var menu = document.querySelector('#contextmenuwrapper');
+        menu.style.display = "block";
+        menu.style.top = event.pageY + 'px';
+        menu.style.left = event.pageX + 'px';
+        console.log("kjører")
+    });
+
+    function vissubmenu() {
+        document.getElementById('menu1sub').style.display = "block";
+    }
+    function skjulsubmenu() {
+        document.getElementById('menu1sub').style.display = "none";
+    }
+
+    function menu1sub() {
+        document.body.style.backgroundColor = 'green';
+    }
+
+    document.querySelectorAll('#menu1, #menu1sub').forEach(function (element) {
+        element.addEventListener('mouseenter', vissubmenu)
+        element.addEventListener('mouseleave', skjulsubmenu);
+    });
+
+    document.querySelector('#menu1sub').addEventListener('click', menu1sub);
+
+    </script>
+</body>
+</html>

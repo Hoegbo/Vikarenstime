@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meldinger</title>
+</head>
+
+<body>
+<style>
+    #meldingswrapper {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+    #meldingswrapper .melding{
+        width: 300px;
+        margin-bottom: 20px;
+        background-color: lightblue;
+        padding: 15px;
+    }
+
+
+
+
+</style>
+    <div id="meldingswrapper"></div>
+    <script>
+        setInterval(function () {
+            document.querySelector('#meldingswrapper')
+                .dispatchEvent(new CustomEvent('melding', {
+                    detail: {
+                        timestamp: new Date(),
+                    }
+                }))
+        }, 1000)
+
+        document.querySelector('#meldingswrapper')
+            .addEventListener('melding', function (event) {
+                var melding = document.createElement('div');
+                var klokke = event.detail.timestamp.getHours() 
+                + ':' + 
+                (event.detail.timestamp.getMinutes() > 9 ? 
+                event.detail.timestamp.getMinutes() : 
+                ("0" + event.detail.timestamp.getMinutes()))  + ':' 
+                + 
+                (event.detail.timestamp.getSeconds() > 9 ? 
+                event.detail.timestamp.getSeconds() : 
+                ("0" + event.detail.timestamp.getSeconds()))  
+                melding.className = 'melding';
+                melding.innerText = 'Klokken er nå: ' + klokke
+                
+                document.querySelector('#meldingswrapper')
+                    .appendChild(melding);
+                    
+                    
+                    // setTimeout(function() {
+                    //     melding.remove();
+                    // }, 1000)
+            });
+    </script>
+</body>
+
+</html>
