@@ -8,7 +8,6 @@
 </head>
 <body>
 
-    <div id="test" style="height: 100px; background-color: lightblue;"></div>
     <div id="contextmenuwrapper">
         <div id="mainmenu">
                 <div id="menu1">
@@ -44,7 +43,7 @@
     </style>
 
     <script>
-    document.querySelector('#test').addEventListener('contextmenu', function(event) {
+    document.addEventListener('contextmenu', function(event) {
         event.preventDefault();
         console.log(event);
         var menu = document.querySelector('#contextmenuwrapper');
