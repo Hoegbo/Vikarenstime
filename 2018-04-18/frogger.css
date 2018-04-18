@@ -1,0 +1,59 @@
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+table {
+  border-collapse: collapse;
+}
+#mainTable {
+  height: 100vh;
+  width: 100%;
+}
+
+#mainTable > thead > tr > th, #mainTable > tfoot > tr > th {
+  height: 100px;
+}
+#mainTable table {
+  width: 100%;
+  height: 100%;
+}
+#mainTable table > tr:not(:last-child) {
+  border-bottom: 1px dashed rgb(153, 153, 37);
+  
+}
+#mainTable table tr > td{
+  background-color: black;
+  padding: 0; 
+}
+
+#mainTable table tr > td.crashed {
+  animation: crashed .5s 1;
+  box-sizing: border-box;
+}
+#mainTable table tr > td.car {
+  background-color: red;
+}
+
+#mainTable table tr > td.frog {
+  background-color: green;
+}
+
+
+
+#mainTable table tr > td.frog.car {
+  background-color: purple;
+}
+
+@keyframes crashed {
+  0% {
+background-color: rgba(0,0,0,1);
+  }
+  50% {
+    background-color: rgba(100,100,100,1);
+  }
+  100% {
+    background-color: rgba(0,0,0,1);
+    
+  }
+}
