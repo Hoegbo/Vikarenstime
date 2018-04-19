@@ -12,7 +12,8 @@ document.getElementById('GodMode').addEventListener('change', function (event) {
 });
 
 var GodMode = false;
-var GameSpeed = 2;
+
+var GameSpeed = 30;
 var numberOfFiles = 15;
 var totalCells = 40;
 var numberOfCarsPerFile = 5;
@@ -53,7 +54,15 @@ function generateCars() {
 }
 
 function addCar(i) {
-  var direction = Math.floor(Math.random() * 2) == 1 ? "right" : "left";
+  if (Cars.length > (numberOfFiles * numberOfCarsPerFile)) {
+    return false;
+  }
+  var direction;
+  if (i || i == 0) {
+    // direction = i % 2 != 0 ? "right" : "left";
+  }
+  direction = Math.floor(Math.random() * 2) % 2 != 0 ? "right" : "left";
+  
   var horizontal = Math.floor(Math.random() * totalCells);
 
   if (!i && i != 0) {
@@ -62,8 +71,10 @@ function addCar(i) {
     // men må også finne ut hvilken rad jeg skal legge dem til.
 
     i = Math.floor(Math.random() * numberOfFiles);
+    // direction = i % 2 != 0 ? "right" : "left";
     horizontal = direction == 'right' ? 0 : totalCells - 1;
   }
+
   var vertical = numberOfFiles - 1 - i;
   var Car = {
     horizontal: horizontal,
@@ -85,9 +96,9 @@ function updateCars() {
     var newHorizontal = (Car.direction == "left") ? Car.horizontal - Car.speed : Car.horizontal + Car.speed;
 
     if (newHorizontal < 0 || newHorizontal >= totalCells) {
-      direction = Math.floor(Math.random() * 2) == 1 ? "right" : "left";
-      newHorizontal = direction == "left" ? totalCells - 1 : 0;
-      Car.direction = direction;
+       direction = Math.floor(Math.random() * 2) == 1 ? "right" : "left";
+      newHorizontal = Car.direction == "left" ? totalCells - 1 : 0;
+       Car.direction = direction;
       Car.speed = Math.floor(Math.random() * 1) + 1;
     }
 
@@ -96,7 +107,7 @@ function updateCars() {
     if (document.querySelectorAll('#road tr')[Car.vertical].childNodes[newHorizontal].className.indexOf('car') > -1) {
       if (document.querySelectorAll('#road tr')[Car.vertical].childNodes[newHorizontal] != Car.oldCell) {
         Cars.splice(i, 1);
-        Car.oldCell.classList.remove('car');
+        Car.oldCell.classList.remove('car', 'left', 'right');
         Car.oldCell.classList.add('crashed');
         // document.getElementById('carCount').innerText = Cars.length;
         continue;
@@ -105,8 +116,9 @@ function updateCars() {
 
     Car.horizontal = newHorizontal;
     Car.cell = document.querySelectorAll('#road tr')[Car.vertical].childNodes[Car.horizontal]
-    Car.cell.classList.add('car');
-    Car.oldCell.classList.remove('car');
+
+    Car.cell.classList.add('car', Car.direction);
+    Car.oldCell.classList.remove('car', 'left', 'right');
 
     if (Car.cell.className.indexOf('frog') > -1) {
       die();
@@ -153,6 +165,7 @@ function resetFrog() {
 
 function moveFrogger(event) {
   var keyCode = event.keyCode || event.which;
+
   if (keyPress == true) {
     return false;
   }
@@ -199,14 +212,14 @@ function goDown() {
 
 function goLeft() {
   frog.horizontal--;
-  if (frog.horizontal < 0) frog.horizontal = 0;
+  if (frog.horizontal < 0) frog.horizontal = totalCells - 1;
 
   updateFrogPosition();
 }
 
 function goRight() {
   frog.horizontal++;
-  if (frog.horizontal >= totalCells) frog.horizontal = totalCells - 1;
+  if (frog.horizontal >= totalCells) frog.horizontal = 0;
 
   updateFrogPosition();
 }
@@ -229,4 +242,4 @@ function updateFrogPosition() {
 
 
 // legg til en ny bil hvert x millisekund
-setInterval(addCar, 100);
+setInterval(addCar, 10);

@@ -28,11 +28,17 @@ table {
 }
 
 #mainTable table tr > td.crashed {
-  animation: crashed .5s 1;
+  animation: crashed 1s 1;
   box-sizing: border-box;
 }
 #mainTable table tr > td.car {
-  background-color: red;
+  /* animation: crashed .1s 1;   */
+}
+#mainTable table tr > td.car.right {
+  background-color: rgb(100, 100, 100);
+}
+#mainTable table tr > td.car.left {
+  background-color: rgb(150, 150, 150);
 }
 
 #mainTable table tr > td.frog {
@@ -50,7 +56,7 @@ table {
 background-color: rgba(0,0,0,1);
   }
   50% {
-    background-color: rgba(100,100,100,1);
+    background-color: rgba(100,0,0,1);
   }
   100% {
     background-color: rgba(0,0,0,1);

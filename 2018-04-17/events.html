@@ -87,7 +87,7 @@
         var thirdButton =
             document.querySelector('#thirdButton');
 
-        thirdButton.addEventListener('click', function () {
+        thirdButton.addEventListener('click', function (event) {
             document.getElementById('divWrapper')
                 .dispatchEvent(new Event('kaffetid'));
         });
