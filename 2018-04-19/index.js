@@ -151,7 +151,7 @@ function drawFrog() {
     context.fillStyle = "#00FF00";
     // context.fillRect(frog.horizontal,HeightOfFile + (frog.vertical * HeightOfFile), frog.size, frog.size);
     // context.ellipse(frog.horizontal, HeightOfFile + (frog.vertical * HeightOfFile), frog.size / 2, frog.size / 2, 0, 0, 0, 0);
-
+    
     context.beginPath();
     context.ellipse(
         frog.horizontal + (frog.size /2), 
@@ -160,8 +160,10 @@ function drawFrog() {
         frog.size / 2, 
         45 * Math.PI / 180, 
         0, 
-        2 * Math.PI);
+        2 * Math.PI);        
     context.fill();
+
+
 }
 
 function drawCars() {
@@ -201,10 +203,12 @@ function resetFrog() {
     //   document.querySelectorAll('.frog').forEach(function (element) {
     //     element.classList.remove('frog');
     //   });
+
     frog = {
         horizontal: Math.floor(width / 2),
-        vertical: "start",
-        alive: true
+        vertical: numberOfFiles,
+        alive: true,
+        size: HeightOfFile
     }
 }
 

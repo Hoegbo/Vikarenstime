@@ -13,7 +13,7 @@ document.getElementById('GodMode').addEventListener('change', function (event) {
 
 var GodMode = false;
 
-var GameSpeed = 30;
+var GameSpeed = 2;
 var numberOfFiles = 15;
 var totalCells = 40;
 var numberOfCarsPerFile = 5;
@@ -81,7 +81,7 @@ function addCar(i) {
     vertical: vertical,
     cell: document.querySelectorAll('#road tr')[vertical].childNodes[horizontal],
     direction: direction,
-    speed: Math.floor(Math.random() * 1) + 1,
+    speed: Math.floor(Math.random() * 3) + 1,
     oldCell: null
   }
   Cars.push(Car);

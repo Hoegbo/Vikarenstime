@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fredag 20.04.2018</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <div class="content">
+        <span id="posX"></span>,
+        <span id="posY"></span>
+        <h1>Oppsummering</h1>
+        <ul>
+            <li name="hurra">
+                Variabler
+            </li>
+            <ul>
+                <li class="datatyper">Number</li>
+                <li class="datatyper">String</li>
+                <li class="datatyper">Boolean</li>
+                <li class="datatyper">Array</li>
+                <li class="datatyper">Object</li>
+            </ul>
+            <li>
+                Functions
+            </li>
+            <ul>
+                <li>function name()</li>
+                <li>var name = function()</li>
+                <li>Anynomous functions</li>
+                <li>Immediately-invoked function expression (or IIFE, pronounced "iffy")</li>
+            </ul>
+            <li>
+                Loops
+            </li>
+            <ul>
+                <li>For</li>
+                <li>For..in</li>
+                <li>For..of</li>
+                <li>while</li>
+                <li>do while</li>
+            </ul>
+            <li>
+                Events
+            </li>
+            <ul>
+                <li>
+                    &lt;element onclick="name()"&gt;&lt;/element&gt;
+                </li>
+                <li>element.onclick = name</li>
+                <li>element.addEventListener</li>
+            </ul>
+            <li>Dom manipulasjon</li>
+            <ul>
+                <li>getElementById</li>
+                <li>getElementByClassName</li>
+                <li>getElementByTagName</li>
+                <li>querySelector</li>
+                <li>querySelectorAll</li>
+                <li>createElement</li>
+                <li>appendChild</li>
+            </ul>
+        </ul>
+    </div>
+
+    <script>
+        var tall = 5;
+
+        var sant = true;
+
+        var string = "her kommer en setning";
+
+        var array = ["window", "kommer", `her`, "setning"];
+
+        // CHAINING
+
+        var objekt = {
+            navn: "Ola",
+            alder: 3,
+            biler: ["jeep", "mazda"],
+            frue: {
+                navn: "Ann-Helen",
+                alder: 2,
+                biler: [],
+            }
+        }
+
+        // for (var i = 0; i < 10; i++) {
+        //     console.log("i", i);
+
+        // }
+        // for (var index in objekt) {
+        //     console.log("index", index);
+        //     console.log(objekt[index])
+        // }
+
+        // for (var verdi of array) {
+        //     console.log(verdi);
+        // }
+        // var DetRegner = true;
+        // while (DetRegner) {
+        //     VannPlanter();
+        //     if (sjekkRegn() = "detregnerikke") {
+        //         break;
+        //     }
+        // }
+
+        // do {
+        //     VannPlanter();
+        //     if (sjekkRegn() = "detregnerikke") {
+        //         break;
+        //     }
+        // } while (DetRegner)
+        // document.body.onload = function(event) {
+        //     console.log("hei", event);
+        // }
+
+        document.addEventListener('click', function (event) {
+            var color = (Math.floor(Math.random() * 100) + 155).toString(16);
+            color = '#' + color + color + color
+            //    alert(color);
+            //    document.body.style.backgroundColor = color;
+            console.log(event);
+            if (event.target.style.backgroundColor == "") {
+                event.target.style.backgroundColor = color;
+            } else {
+                event.target.style.backgroundColor = "";
+            }
+        });
+
+        document.addEventListener('mousemove', function (event) {
+            document.getElementById('posX').innerText = event.pageX;
+            document.getElementById('posY').innerText = event.pageY;
+        });
+        document.body.innerHTML += "<p>" + "Heisann" + "</p>";
+        var navneliste = [{
+                fornavn: "Ola",
+                etternavn: "Einvik"
+            },
+            {
+                fornavn: "Roger",
+                etternavn: "Høgli"
+            },
+        ]
+
+        var htmlString = '<table border=1>';
+        for (var i = 0; i < navneliste.length; i++) {
+            var navn = navneliste[i];
+            htmlString += '<tr';
+            if (navn.etternavn[0] == "H") {
+                htmlString += ' class="peasant"';
+            }
+            htmlString += '>';
+            htmlString += '<td>' + navn.fornavn + '</td>';
+            htmlString += '<td>' + navn.etternavn + '</td>';
+            htmlString += '</tr>';
+        }
+        htmlString += '</table>';
+        document.body.innerHTML += htmlString;
+        var table = document.createElement('table');
+        table.setAttribute('border', 1);
+        for (var i = 0; i < navneliste.length; i++) {
+            var rad = document.createElement('tr');
+            var fornavn = document.createElement('td');
+            var etternavn = document.createElement('td');
+
+            rad.appendChild(fornavn);
+            rad.appendChild(etternavn);
+
+            var navn = navneliste[i];
+
+            if (navn.etternavn[0] == "H") {
+                rad.classList.add("peasant");
+            }
+            fornavn.innerText = navn.fornavn;
+            etternavn.innerText = navn.etternavn;
+
+            fornavn.innerText = fornavn.innerText.toUpperCase();
+            table.appendChild(rad);
+
+
+            fornavn.addEventListener('click', function (event) {
+                alert(event.target.innerText);
+            })
+
+        }
+        console.log(table);
+
+        document.body.appendChild(table);
+    </script>
+    <hr>
+
+    <table border=1>
+        <tr>
+            <th>Fornavn</th>
+            <th>Etternavn</th>
+        </tr>
+        <tr>
+            <td>Ola</td>
+            <td>Einvik</td>
+        </tr>
+        <tr>
+            <td>Roger</td>
+            <td>Høgli</td>
+        </tr>
+    </table>
+</body>
+
+</html>
